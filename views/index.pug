@@ -1,0 +1,48 @@
+extends layout
+
+block content
+
+  h1 Home Page
+  p Welcome to #{title}
+ 
+  if user
+    div.nav
+      a(href='/logout')
+        button Sign Out
+      a(href='/join_the_club')
+        button Join The Club
+      a(href=user.url)
+        button Profile
+      a(href='/message/create')
+        button Create Message
+
+  else
+    div.nav
+      a(href='/signup')
+        button Sign Up
+      a(href='/login')
+        button Log In
+
+  if (messages.length > 0)
+    if (user && user.membership_status === 'Member' || user && user.membership_status === 'Admin')
+      each message in messages
+        div.message
+          h2=message.user.full_name
+          dl
+            dt=message.title
+            dd=message.text
+          p=message.timestamp_formatted
+          if (user && user.membership_status === 'Admin')
+            form(action='/message/delete' method='POST')
+              input(type='hidden' required='true' name='messageid' value=message._id)
+              button(type='submit') Delete
+
+    else
+      each message in messages
+        div.message
+          dl
+            dt=message.title
+            dd=message.text
+
+  else
+    h1 No messages found

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+
+  h1 Sign Up Page
+  h1=title
+  a(href='/')
+    button Home
+
+  form.form(action='' method='post')
+    label(for='first_name') First Name:
+    input(type='text' id='first_name' placeholder='Mike' name='first_name' required='true')
+    label(for='last_name') Last Name:
+    input(type='text' id='last_name' placeholder='Tyson' name='last_name' required='true')
+    label(for='username') Username:
+    input(type='text' id='username' placeholder='miketyson' name='username' required='true')
+    label(for='email') Email:
+    input(type='email' id='email' placeholder='miketyson@mail.com' name='email' required='true')
+    label(for='password') Password:
+    input(type='password' id='password' placeholder='********' name='password' required='true')
+    label(for='password_confirmation') Password Confirmation:
+    input(type='password' id='password_confirmation' placeholder='********' name='password_confirmation' required='true')
+    label(for='admin') Admin (optional):
+    input(type='checkbox' id='admin' name='admin' value='true')
+    button(type='submit') Sign Up
+
+  if errors
+    ul
+      each error in errors
+        li=error.msg

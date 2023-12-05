@@ -1,0 +1,27 @@
+extends layout
+
+block content
+
+  h1 Create Message Page
+  h1=title
+
+  if (user)
+    form.form(action='' method='post')
+      label(for='title') Title:
+      input(type='text' id='title' placeholder='Cool Title' name='title' required='true')
+      label(for='text') Text:
+      textarea(rows='5' cols='50' id='text' placeholder='Cool Text' name='text' required='true')
+      input(type='hidden' name='userid' value=user._id)
+      button(type='submit') Submit
+
+  else
+    p You must Log In to access this page
+    a(href='/')
+      button HOME
+    a(href='/login')
+      button Log In
+
+  if errors
+    ul
+      each error in errors
+        li=error.msg

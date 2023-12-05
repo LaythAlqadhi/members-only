@@ -1,0 +1,39 @@
+extends layout
+
+block content
+
+  h1 Profile Page
+  h1 Full Name: #{user.full_name}
+  p Username: #{user.username}
+  a(href='/')
+    button Home
+
+  if (user && user.membership_status)
+    p Membership: #{user.membership_status}
+
+  else
+    p Membership: Non-Member Access
+
+  if (messages.length > 0)
+    if (currentUser && currentUser.membership_status === 'Member' || currentUser && currentUser.membership_status === 'Admin')
+      each message in messages
+        div.message
+          h2=user.full_name
+          dl
+            dt=message.title
+            dd=message.text
+          p=message.timestamp_formatted
+          if (currentUser && currentUser.membership_status === 'Admin')
+            form(action='/message/delete' method='POST')
+              input(type='hidden' required='true' name='messageid' value=message._id)
+              button(type='submit') Delete
+
+    else
+      each message in messages
+        div.message
+          dl
+            dt=message.title
+            dd=message.text
+
+  else
+    h1 No messages found

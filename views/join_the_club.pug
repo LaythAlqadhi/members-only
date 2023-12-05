@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+  h1 Join The Club Page
+  h1=title
+  a(href='/')
+    button Home
+
+  form.form(action='' method='POST')
+    label(for='passcode') Inter Passcode:
+    input(type='text' id='passcode' placeholder='Cool People' name='passcode' required='true')
+    input(type='hidden' id='userid' name='userid' value=user._id)
+    p
+      | Note: You can find the passcode 
+      a(href='https://github.com/LaythAlqadhi/members-only') here
+      |.
+
+    button(type='submit') Submit
+
+  if errors
+    ul
+      each error in errors
+        li=error.msg
